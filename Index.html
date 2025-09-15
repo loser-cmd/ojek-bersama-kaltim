@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gojek MVP - Tanpa Beban</title>
+    <!-- React & ReactDOM via CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel untuk JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function App() {
+        const [pickup, setPickup] = React.useState("");
+        const [destination, setDestination] = React.useState("");
+        const [fare, setFare] = React.useState(null);
+
+        const calculateFare = () => {
+          // Simulasi tarif: Rp 5.000 dasar + Rp 2.000 per km (anggap 3 km default)
+          const baseFare = 5000;
+          const perKm = 2000;
+          const distance = 3; // km dummy
+          setFare(baseFare + perKm * distance);
+        };
+
+        return (
+          <div style={{ fontFamily: "Arial", padding: "20px" }}>
+            <h1>🚖 Gojek MVP - Tanpa Beban</h1>
+
+            <label>Lokasi Jemput:</label>
+            <input
+              type="text"
+              value={pickup}
+              onChange={(e) => setPickup(e.target.value)}
+              placeholder="Masukkan lokasi jemput"
+              style={{ display: "block", margin: "10px 0", padding: "5px" }}
+            />
+
+            <label>Lokasi Tujuan:</label>
+            <input
+              type="text"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              placeholder="Masukkan tujuan"
+              style={{ display: "block", margin: "10px 0", padding: "5px" }}
+            />
+
+            <button
+              onClick={calculateFare}
+              style={{ padding: "10px 20px", marginTop: "10px" }}
+            >
+              Hitung Tarif
+            </button>
+
+            {fare && (
+              <div style={{ marginTop: "20px", fontSize: "18px" }}>
+                💰 Estimasi Tarif: Rp {fare.toLocaleString()}
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
